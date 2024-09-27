@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf4026"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"ls_dest_password": {
+			"value": ""
+		},
+		"ls_source_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://store4026.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "azure4026.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "AzureGLData"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "adminuser"
+		},
+		"ls_dest_properties_typeProperties_server": {
+			"value": "azure4026.database.windows.net"
+		},
+		"ls_dest_properties_typeProperties_database": {
+			"value": "AZureGLData"
+		},
+		"ls_dest_properties_typeProperties_userName": {
+			"value": "adminuser"
+		},
+		"ls_source_properties_typeProperties_server": {
+			"value": "localhost,14330"
+		},
+		"ls_source_properties_typeProperties_database": {
+			"value": "ultiproDev"
+		},
+		"ls_source_properties_typeProperties_userName": {
+			"value": "sa"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/b090fc45-ce45-49f3-b5d8-5848cb149029/resourceGroups/Ben-RG/providers/Microsoft.Storage/storageAccounts/store4026"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
