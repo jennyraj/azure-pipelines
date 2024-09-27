@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Data flow1",
+				"description": "main data flow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
