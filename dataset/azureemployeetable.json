@@ -1,0 +1,54 @@
+{
+	"name": "azureemployeetable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CompanyCode",
+				"type": "varchar"
+			},
+			{
+				"name": "EmployeeId",
+				"type": "varchar"
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			},
+			{
+				"name": "DOB",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "CreateDate",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "UpdateDate",
+				"type": "datetime2",
+				"scale": 7
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EmployeeFromExcel"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

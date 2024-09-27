@@ -9,21 +9,31 @@
 						"referenceName": "ds_excel_input",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "excelsource"
+				},
+				{
+					"dataset": {
+						"referenceName": "dest_company_table",
+						"type": "DatasetReference"
+					},
+					"name": "companytable"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "ls_azure_database",
+						"referenceName": "azureemployeetable",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "azureemployeetable"
 				}
 			],
 			"transformations": [
 				{
-					"name": "AlterRow1"
+					"name": "mergelogic"
+				},
+				{
+					"name": "joinoncompanycode"
 				}
 			],
 			"scriptLines": [
@@ -39,10 +49,34 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 alterRow(upsertIf(true())) ~> AlterRow1",
-				"AlterRow1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> excelsource",
+				"source(output(",
+				"          Id as integer,",
+				"          CompanyCode as string,",
+				"          CompanyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> companytable",
+				"joinoncompanycode alterRow(upsertIf(true())) ~> mergelogic",
+				"excelsource, companytable join(excelsource@CompanyCode == companytable@CompanyCode,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinoncompanycode",
+				"mergelogic sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Id as integer,",
+				"          CompanyCode as string,",
+				"          EmployeeId as string,",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          DOB as timestamp,",
+				"          CreateDate as timestamp,",
+				"          UpdateDate as timestamp",
+				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
 				"     updateable:false,",
@@ -50,10 +84,9 @@
 				"     keys:['Id'],",
 				"     format: 'table',",
 				"     preSQLs:['set identity_insert [EmployeeFromExcel] on;'],",
-				"     postSQLs:['set identity_insert [EmployeeFromExcel] on;'],",
+				"     postSQLs:['set identity_insert [EmployeeFromExcel] off;'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> azureemployeetable"
 			]
 		}
 	}
