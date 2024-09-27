@@ -1,0 +1,17 @@
+{
+	"name": "ds_azure_employee_staging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "stgEmployeeCt"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
